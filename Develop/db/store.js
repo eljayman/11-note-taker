@@ -1,6 +1,6 @@
 const util = require("util");
 const fs = require("fs");
-// const uuid = require("uuid/v1");
+const { v1: uuidv1 } = require("uuid");
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -10,22 +10,30 @@ class Store {
     return readFileAsync("./db/db.json", "utf-8");
   }
   write(note) {
-    return writeFileAsync("./db.json", JSON.stringify(note));
+    let notes;
+    note.id = uuidv1();
+    readFileAsync("./db/db.json", "utf-8")
+      .then((data) => {
+        notes = JSON.parse(data);
+        notes.push(note);
+      })
+      .then(() => {
+        return writeFileAsync("./db/db.json", JSON.stringify(notes, null, 2));
+      });
   }
-  // getNotes() {
-  //   readFileAsync("./db/db.json", "utf-8", (err, data) => {
-  //     if (err) {
-  //       console.log(err);
-  //     }
-  //     (data) => {
-  //       JSON.stringify(data);
-  //     };
-  //   });
+  delete(id) {
+    let notes;
+    readFileAsync("./db/db.json", "utf-8")
+      .then((data) => {
+        notes = JSON.parse(data);
+        const indexOfNotes = notes.findIndex((object) => {
+          return object.id === id;
+        });
+        notes.splice(indexOfNotes, 1);
+      })
+      .then(() => {
+        return writeFileAsync("./db/db.json", JSON.stringify(notes, null, 2));
+      });
+  }
 }
-// async addNote();
-// async removeNote();
-
-// const example = new Store();
-// example.getNotes();
-
 module.exports = new Store();

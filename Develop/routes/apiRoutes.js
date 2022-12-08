@@ -6,7 +6,6 @@ router.get("/api/notes", async (req, res) => {
     .read()
 
     .then((notes) => {
-      console.log(notes);
       return res.send(notes);
     })
     .catch((err) => {
@@ -14,17 +13,28 @@ router.get("/api/notes", async (req, res) => {
     });
 });
 
-router.post("/api/notes", async (req, res) => {
-  await store
-    .read()
+router.post("/api/notes", (req, res) => {
+  store
+    .write(req.body)
+    .then(() => {
+      return console.log("note saved");
+    })
 
-    .then((notes) => {
-      console.log(notes);
-      notes.append(note);
-      return res.send(notes);
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
+router.delete(`/api/notes/:id`, (req, res) => {
+  let deletionID = req.params.id;
+  store
+    .delete(deletionID)
+    .then(() => {
+      return console.log("note deleted");
     })
     .catch((err) => {
       res.status(500).json(err);
     });
 });
+
 module.exports = router;
