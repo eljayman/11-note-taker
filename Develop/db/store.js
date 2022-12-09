@@ -12,7 +12,7 @@ class Store {
   write(note) {
     let notes;
     note.id = uuidv1();
-    readFileAsync("./db/db.json", "utf-8")
+    return readFileAsync("./db/db.json", "utf-8")
       .then((data) => {
         notes = JSON.parse(data);
         notes.push(note);
@@ -23,7 +23,7 @@ class Store {
   }
   delete(id) {
     let notes;
-    readFileAsync("./db/db.json", "utf-8")
+    return readFileAsync("./db/db.json", "utf-8")
       .then((data) => {
         notes = JSON.parse(data);
         const indexOfNotes = notes.findIndex((object) => {

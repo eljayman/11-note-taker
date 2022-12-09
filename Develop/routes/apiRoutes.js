@@ -17,7 +17,7 @@ router.post("/api/notes", (req, res) => {
   store
     .write(req.body)
     .then(() => {
-      return console.log("note saved");
+      res.end();
     })
 
     .catch((err) => {
@@ -30,7 +30,7 @@ router.delete(`/api/notes/:id`, (req, res) => {
   store
     .delete(deletionID)
     .then(() => {
-      return console.log("note deleted");
+      res.end();
     })
     .catch((err) => {
       res.status(500).json(err);
