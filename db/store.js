@@ -1,23 +1,25 @@
 const util = require("util");
 const fs = require("fs");
 const { v1: uuidv1 } = require("uuid");
+const { json } = require("body-parser");
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 class Store {
   read() {
-    return readFileAsync("./db/db.json", "utf-8");
+    return readFileAsync("./db/db.json", "utf-8").then((data) => {
+      return JSON.parse(data);
+    });
   }
   write(note) {
-    let notes;
-    note.id = uuidv1();
     return readFileAsync("./db/db.json", "utf-8")
       .then((data) => {
-        notes = JSON.parse(data);
-        notes.push(note);
+        let notes = JSON.parse(data);
+        notes.push({ ...note, id: uuidv1() });
+        return notes;
       })
-      .then(() => {
+      .then((notes) => {
         return writeFileAsync("./db/db.json", JSON.stringify(notes, null, 2));
       });
   }
