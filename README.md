@@ -6,7 +6,7 @@ This application stores notes entered into a web browser, so that they may be re
 
 ## Video
 
-[Link](https://watch.screencastify.com/v/iVMGFeNXBIQj4bE3Fjn9)
+[Link](https://watch.screencastify.com/v/gvgqHc2xmQ3dEm2uL2X7)
 
 ## Table of Contents
 
