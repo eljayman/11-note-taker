@@ -8,6 +8,11 @@ This application stores notes entered into a web browser, so that they may be re
 
 [Link](https://watch.screencastify.com/v/gvgqHc2xmQ3dEm2uL2X7)
 
+## View
+
+![Screenshot of application](./public/assets/screenshot/app.png)
+
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -22,6 +27,8 @@ This application stores notes entered into a web browser, so that they may be re
 This application is entirely web-based. No installation is required.
 
 ## Usage
+
+Visit [Application](https://secure-crag-33687.herokuapp.com/)
 
 Click the 'Get Started' button to go to the notes page. You will see a sidebar with the stored notes, if there are any, a plus button, which can be used while viewing a note to create a new note, and trash bin buttons on all existing notes which delete the note they are assigned to. While entering a new note a disk button will appear that allows you to save the current note.
 
